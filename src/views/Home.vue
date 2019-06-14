@@ -3,7 +3,8 @@
         <!--标题-->
         <van-nav-bar title="首页" class="nav-title">
             <van-icon name="search" slot="left"></van-icon>
-            <van-icon name="cart" slot="right"></van-icon>
+            <!--显示用户名-->
+            <van-icon @click="$router.push('/profile')" slot="right">{{userInfo.userName}}</van-icon>
         </van-nav-bar>
         <!--轮播图-->
         <van-swipe :autoplay="3000" >
@@ -43,6 +44,8 @@
     import { swiper, swiperSlide } from 'vue-awesome-swiper';
     import axios from 'axios';
     import url from '@/service.config.js';
+    // 从vuex取值
+    import {mapState} from 'vuex';
     export default{
          data() {
             return {
@@ -143,19 +146,23 @@
         created(){
             let url1 = url.getVarietyList;
             axios.get(url1).then(res=>{
-                console.log(res);
+                // console.log(res);
                 this.varietyList=res.data;
             });
+        },
+        // 把vuex取的值放在计算属性里
+        computed:{
+            ...mapState(['userInfo'])
         }
 
-    }
+    };
 </script>
 
 <style lang="scss">
     .container{
         background: #eee;
     }
-    .van-nav-bar{
+    .container .van-nav-bar{
         position: fixed;
         top: 0;
         left: 0;
@@ -167,6 +174,7 @@
     .swipe-imgs{
         height: 4rem;
         width: 100%;
+        margin-top: 0.9rem;
     }
     //热门
     .hot{

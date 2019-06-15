@@ -10,10 +10,10 @@
                         </li>
                     </ul>
                 </van-col>
-                <van-col span="18" class="container">
+                <van-col span="18" class="containers">
                     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
                         <van-list class="content" @load="onLoad" v-model="isLoading" :finished="finished" finished-text="没有更多了">
-                            <div class="content-item" v-for="(item, index) in productList" :key="index">
+                            <div @click="goDetail(item._id)" class="content-item" v-for="(item, index) in productList" :key="index">
                                 <img :src="item.img" alt="">
                                 <p class="content-item-name">{{item.name}}</p>
                                 <p>￥{{item.price}}</p>
@@ -58,6 +58,7 @@
             });
         },
         methods:{
+            // 选中类型
             selectCategory(typeId, index){
                 this.active = index;
                 this.typeId = typeId;
@@ -66,6 +67,7 @@
                 this.getProductList();
                 this.finished = false;
             },
+            // 获取商品信息
             getProductList(){
                 this.isLoading = true;
                 axios({
@@ -89,18 +91,40 @@
                     console.log(err);
                 });
             },
+            // 加载
             onLoad(){
                 // 异步加载
                 setTimeout(()=>{
                     this.getProductList();
                 },2000);
             },
+            // 刷新
             onRefresh() {
                 setTimeout(() => {
                     this.productList = [];
                     this.getProductList();
-                }, 2000);
-                
+                }, 2000);   
+            },
+            // 商品详情
+            goDetail(id){
+                // console.log(id);
+                // $router.push()页面跳转可传参
+                // 1.params
+                // this.$router.push({
+                //     name:'detail',
+                //     params:{
+                //         id: id
+                //     }
+                // });
+                // 2.query
+                // this.$router.push({
+                //     path: '/detail',
+                //     query: {
+                //         id: id
+                //     }
+                // });
+                // 3.path: '/address/:id'
+                this.$router.push(`/detail/${id}`);
             }
         }
     }
@@ -120,7 +144,7 @@
             background-color: #fff;
         }
     }
-    .container{
+    .containers{
         position: fixed;
         top: 46px;
         bottom: 1rem;

@@ -13,7 +13,7 @@ import 'vant/lib/index.css';
 
 Vue.use(Vant);
 
-import { Swipe, SwipeItem, Lazyload, Button, Icon, NavBar, Tabbar, TabbarItem, Tab, Tabs, Field, Toast, Row, Col, List, PullRefresh } from 'vant';
+import { Swipe, SwipeItem, Lazyload, Button, Icon, NavBar, Tabbar, TabbarItem, Tab, Tabs, Field, Toast, Row, Col, List, PullRefresh} from 'vant';
 Vue.use(Swipe).use(SwipeItem).use(Lazyload).use(Button).use(Icon).use(NavBar).use(Tabbar).use(TabbarItem).use(Tab).use(Tabs).use(Field).use(Toast).use(Row).use(Col).use(List).use(PullRefresh);
 
 import '@/mock/mock.js';

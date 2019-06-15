@@ -24,7 +24,7 @@
                     </div>
                 </swiper-slide>
             </swiper>
-        </div>
+        </div>  
         <!--推荐-->
         <div class="variety">
             <p class="variety-title">-----  星推荐  -----</p>
@@ -161,6 +161,7 @@
 <style lang="scss">
     .container{
         background: #eee;
+        left: 0;
     }
     .container .van-nav-bar{
         position: fixed;
@@ -174,7 +175,7 @@
     .swipe-imgs{
         height: 4rem;
         width: 100%;
-        margin-top: 0.9rem;
+        margin-top: 46px;
     }
     //热门
     .hot{

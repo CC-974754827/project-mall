@@ -7,7 +7,7 @@ export default new Vuex.Store({
   //存储值 状态池
   state: {
     userInfo:{
-      userName: '未登录'
+      //userName: '未登录'
     }
   },
   //类似计算属性,进行数据筛选，多个数据的计算

@@ -111,7 +111,8 @@
                             // 由后端把结果返回来，保存在res中
                             this.loginAction(res.data.userInfo);
                             // 跳转
-                            this.$router.push('/');   
+                            // this.$router.push('/');
+                            this.$router.go(-1);   
 
                         }).catch(err=>{
                             this.$toast.fail('保存登录状态失败');

@@ -10,9 +10,9 @@
             <p>产地：{{detail.city}}</p>
         </div>
         <div class="toolbar">
-            <p>客服</p>
+            <p @click="service()">客服</p>
             <p>购物车</p>
-            <p>加入购物车</p>
+            <p @click="addCart()">加入购物车</p>
             <p>立即购买</p>
         </div>
         
@@ -20,7 +20,9 @@
 </template>
 <script>
     import axios from 'axios';
-    import url from '@/service.config.js'
+    import url from '@/service.config.js';
+    // 映射
+    import {mapState} from 'vuex';
     export default{
         data(){
             return{
@@ -42,6 +44,43 @@
                 console.log(err);
             });
         },
+        computed:{
+            ...mapState(['userInfo'])
+        },
+        methods:{
+            // 客服功能
+            service(){
+                var el = event.currentTarget;
+                console.log(el.innerHTML);
+                this.$toast.fail('敬请期待');
+            },
+            // 加入购物车
+            addCart(){
+                // 校验当前用户是否登录,前端使用vuex保存登录状态【刷新后就消失】
+                // 后端保存登录状态，可以用koa-session   redis
+                if(JSON.stringify(this.userInfo) === '{}'){
+                    this.$toast.fail('请先登录');
+                    setTimeout(()=>{
+                        this.$router.push('/profile');
+                    },1000);
+                }else{
+                    // 插入产品信息
+                    axios({
+                        url: url.addCart,
+                        method: 'post',
+                        data: {
+                            productId: this.detail._id,
+                            userId: this.userInfo._id
+                        }
+                    }).then(res=>{
+                        console.log(res);
+                    }).catch(err=>{ 
+                        console.log(err);
+                    });
+                }
+
+            }
+        }
     }
 </script>
 

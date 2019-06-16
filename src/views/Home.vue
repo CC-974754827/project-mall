@@ -4,7 +4,7 @@
         <van-nav-bar title="首页" class="nav-title">
             <van-icon name="search" slot="left"></van-icon>
             <!--显示用户名-->
-            <van-icon @click="$router.push('/profile')" slot="right">{{userInfo.userName}}</van-icon>
+            <van-icon @click="$router.push('/profile')" slot="right">{{JSON.stringify(userInfo) === '{}' ? '未登录' : userInfo.userName}}</van-icon>
         </van-nav-bar>
         <!--轮播图-->
         <van-swipe :autoplay="3000" >

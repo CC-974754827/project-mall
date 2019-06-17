@@ -74,6 +74,7 @@
                         }
                     }).then(res=>{
                         console.log(res);
+                        this.$toast.success('已加入购物车');
                     }).catch(err=>{ 
                         console.log(err);
                     });

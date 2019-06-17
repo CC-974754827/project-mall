@@ -12,7 +12,8 @@ const URL = {
     getTypes: SERVERURL + 'type/getTypes',
     getProductsByType: SERVERURL + 'product/getProductsByType',
     getDetail: SERVERURL + 'product/getDetail',
-    addCart: SERVERURL + 'cart/addCart'
+    addCart: SERVERURL + 'cart/addCart',
+    getCart: SERVERURL + 'cart/getCart'
 
     //user与后端加载路由的地址一样
     //registUser与后端接收请求的名称一样

@@ -2,12 +2,12 @@
 const path = require('path');
 const CompressionPluginn = require('compression-webpack-plugin');
 
-module.exports{
+module.exports = {
 <!-- productionSourceMap当不需要生产环境的source.map，将其设置为false，以加速生产环境构建 -->
 <!-- 删除map -->
     productionSourceMap:false,
 <!-- 运行自动打开文件 -->
-    devServe:{
+    devServer:{
         open: true
     },
     configureWebpack:config=>{

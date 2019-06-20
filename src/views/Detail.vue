@@ -11,7 +11,7 @@
         </div>
         <div class="toolbar">
             <p @click="service()">客服</p>
-            <p>购物车</p>
+            <p @click="$router.push('/cart')">购物车</p>
             <p @click="addCart()">加入购物车</p>
             <p>立即购买</p>
         </div>

@@ -2,8 +2,15 @@
     <div>
         <van-nav-bar title="购物车"></van-nav-bar>
         <div class="card">
-            <van-card num="2" price="2.00" desc="描述信息"  title="商品标题" :thumb="imageURL"/>    
+            <van-card v-for="(item, index) in productList" :key="index" :price="item.price" :desc="item.company"  :title="item.name" :thumb="item.img">
+                <!--用于删除操作-->
+                <div slot="footer">
+                    <van-button size="mini" @click="delCart(item._id,index)">删除</van-button>
+                </div>
+            </van-card>    
         </div>
+        <!--price以分为单位-->
+        <van-submit-bar class="submit-bar" :price="totalPrice" button-text="提交订单" @submit="onSubmit"/>
     </div>
 </template>
 
@@ -14,12 +21,18 @@
     export default{
         data(){
             return{
-                imageURL: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559387757134&di=8d1988e361cc634669b4ee6a1e3df9f7&imgtype=0&src=http%3A%2F%2F05imgmini.eastday.com%2Fmobile%2F20181105%2F20181105203706_2504283500e77714b851542bc2cb11a8_2.jpeg',
-                productlist: []
+                productList: [],
+                active: 0
             }
         },
         computed:{
-            ...mapState(['userInfo'])
+            ...mapState(['userInfo']),
+            totalPrice(){
+                return this.productList.reduce((sum,elem)=>{
+                    sum += elem.price;
+                    return sum;
+                },0)*10*10;
+            }
         },
         created(){
             if(JSON.stringify(this.userInfo) === '{}'){
@@ -32,18 +45,45 @@
                     url: url.getCart,
                     method: 'get',
                     params:{
-                        id: this.userInfo._id
+                        userId: this.userInfo._id
+                    }
+                }).then(res=>{
+                    for(let item of res.data){
+                        this.productList.push(item.productId);
+                    }
+                }).catch(err=>{
+                    console.log(err);
+                });
+            }
+        },
+        methods:{
+            onSubmit(){
+                this.$toast.success('敬请期待');
+            },
+            delCart(id,index){
+                // 删除数据库中的操作，如果删除成功，进入回调函数，在回调函数中进行操作
+                this.active = index;
+                this.id = id;
+                axios({
+                    url: url.delCart,
+                    method: 'post',
+                    data: {
+                        id: this.id
                     }
                 }).then(res=>{
                     console.log(res);
                 }).catch(err=>{
                     console.log(err);
                 });
+                // 删除一条指定的数据
+                this.productList.splice(index, 1);
             }
         }
     }
 </script>
 
 <style lang="scss">
-
+    .submit-bar{
+        margin-bottom: 1rem;
+    }
 </style>
